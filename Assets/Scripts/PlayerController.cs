@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.VirtualTexturing;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance = null;
+
     public SpriteRenderer spriteRenderer { get; private set; }
     public Animator animator { get; private set; }
     public Rigidbody2D body { get; private set; }
@@ -32,6 +33,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Debug.LogWarning(name + ": Singleton betrayal!");
+
+            instance.transform.position = transform.position;
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this);
+        instance = this;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
