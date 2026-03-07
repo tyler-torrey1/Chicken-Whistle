@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private float jumpVel => 2f * Mathf.Abs(Physics2D.gravity.y * Time.fixedDeltaTime) * maxJumpHeight; // should set in Awake and cached
     private Vector2 moveDirection;
 
+    private float jump;
+
+
     // data cache
 
     ContactPoint2D[] currentContacts = new ContactPoint2D[10];
@@ -64,14 +67,7 @@ public class PlayerController : MonoBehaviour
         // get direction of player
 
         // flip sprite based on horizontal movement
-        if (moveDirection.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (moveDirection.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
+        
     }
 
     // Update is called once per frame
@@ -125,31 +121,38 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAnimator()
     {
-        if (moveDirection.x != 0 || moveDirection.y != 0)
+        
+        // check if left
+        if (moveDirection.x > 0)
         {
-            // animator.SetBool("isMoving", true);
-            if (moveDirection.x != 0)
-            {
-                // animator.SetBool("isSideways", true);
-                // animator.SetBool("isForward", false);
-                // animator.SetBool("isBackward", false);
-            }
-            if (moveDirection.y < 0)
-            {
-                // animator.SetBool("isSideways", false);
-                // animator.SetBool("isForward", true);
-                // animator.SetBool("isBackward", false);
-            }
-            if (moveDirection.y > 0)
-            {
-                // animator.SetBool("isSideways", false);
-                // animator.SetBool("isForward", false);
-                // animator.SetBool("isBackward", true);
-            }
+            animator.SetBool("isLeft", false);
+        }
+        else if (moveDirection.x < 0)
+        {
+            animator.SetBool("isLeft", true);
+        }
+
+        // check if moving
+        if (body.linearVelocityX != 0)
+        {
+            animator.SetBool("isMoving", true);
         }
         else
         {
-            // animator.SetBool("isMoving", false);
+            animator.SetBool("isMoving", false);
+        }
+
+        // check if jumping
+        if (jump > 0f && isGrounded && !animator.GetBool("isAirborne"))
+        {
+            animator.SetTrigger("jump");
+            animator.SetBool("isAirborne", true);
+        }
+
+        else if (jump <= 0f && isGrounded && animator.GetBool("isAirborne"))
+        {
+            animator.ResetTrigger("jump");
+            animator.SetBool("isAirborne", false);
         }
 
     }
@@ -190,7 +193,7 @@ public class PlayerController : MonoBehaviour
      */
     public void JumpInput(InputAction.CallbackContext context)
     {
-        float jump = context.ReadValue<float>();
+        jump = context.ReadValue<float>();
 
         if (jump > 0f && isGrounded && isJumping == false)
         {
