@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public class Freezeable : MonoBehaviour {
-    private bool _isFrozen = false;
+    protected bool IsFrozen { get; private set; } = false;
     private float _thawTime = 0f;
     public virtual void Update() {
-        if (this._isFrozen) {
+        if (this.IsFrozen) {
             if (Time.time > this._thawTime) {
                 this.Unfreeze();
             }
@@ -14,11 +14,11 @@ public class Freezeable : MonoBehaviour {
     // Does this need to be an event, or will the freeze be able to call the Freeze method on all local objects?
     public virtual void Freeze(float freezeTime) {
         this._thawTime = Time.time + freezeTime; // Current time + time frozen
-        this._isFrozen = true;
+        this.IsFrozen = true;
     }
     public virtual void Unfreeze() {
-        if (this._isFrozen) {
-            this._isFrozen = false;
+        if (this.IsFrozen) {
+            this.IsFrozen = false;
             this._thawTime = 0f; // Probably not necessary, but cleans up
         }
     }
