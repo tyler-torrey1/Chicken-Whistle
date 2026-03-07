@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     bool isJumping;
 
     // general state
-    private float jumpVel => Mathf.Sqrt(2f * Mathf.Abs(Physics2D.gravity.y / (Time.fixedDeltaTime * Time.fixedDeltaTime)) * maxJumpHeight); // should set in Awake and cached
+    private float jumpVel => 2f * Mathf.Abs(Physics2D.gravity.y * Time.fixedDeltaTime) * maxJumpHeight; // should set in Awake and cached
     private Vector2 moveDirection;
 
     // data cache
@@ -60,7 +61,6 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
         }
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -105,8 +105,9 @@ public class PlayerController : MonoBehaviour
         if (isJumping && jumpWatch <= jumpLaunchDuration)
         {
             // Over jumpLaunchDuration, apply a total of jumpVel acceleration
-            float jumpAcc = jumpVel * (Time.fixedDeltaTime / Mathf.Max(Time.fixedDeltaTime, jumpLaunchDuration));
-            body.AddForceY(jumpAcc * body.mass);
+            int frameCount = Mathf.Max(1, Mathf.RoundToInt(jumpLaunchDuration / Time.fixedDeltaTime));
+            float jumpAcc = jumpVel * (1f / frameCount);
+            body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y + jumpAcc);
         }
     }
 
@@ -155,7 +156,7 @@ public class PlayerController : MonoBehaviour
         }
         foreach (ContactPoint2D contact in currentContacts)
         {
-            if (contact.normal.y > 0)
+            if (contact.normal.y > Mathf.Epsilon)
             {
                 return true;
             }
