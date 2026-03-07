@@ -8,6 +8,8 @@ public class FreezeablePlatform : Freezeable {
         this._sprite = this.GetComponent<Sprite>();
         this._collider = this.GetComponent<BoxCollider2D>();
         this._renderer = this.GetComponent<SpriteRenderer>();
+
+        this._collider.enabled = false;
     }
     [SerializeField]
     private float tempFreezeTime = 3f; // 3 seconds for default freeze for temp testing
