@@ -1253,6 +1253,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 335850611782808155, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0525286
+      objectReference: {fileID: 0}
+    - target: {fileID: 335850611782808155, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3046672
+      objectReference: {fileID: 0}
+    - target: {fileID: 335850611782808155, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.07879315
+      objectReference: {fileID: 0}
+    - target: {fileID: 335850611782808155, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.15233362
+      objectReference: {fileID: 0}
     - target: {fileID: 2059478486690937563, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
       propertyPath: m_Name
       value: Player (1)
@@ -1328,6 +1344,10 @@ PrefabInstance:
     - target: {fileID: 8311745448198198480, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
       propertyPath: jumpHeight
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311745448198198480, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
+      propertyPath: maxJumpHeight
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

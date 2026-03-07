@@ -114,29 +114,29 @@ public class PlayerController : MonoBehaviour
     {
         if (moveDirection.x != 0 || moveDirection.y != 0)
         {
-            animator.SetBool("isMoving", true);
+            // animator.SetBool("isMoving", true);
             if (moveDirection.x != 0)
             {
-                animator.SetBool("isSideways", true);
-                animator.SetBool("isForward", false);
-                animator.SetBool("isBackward", false);
+                // animator.SetBool("isSideways", true);
+                // animator.SetBool("isForward", false);
+                // animator.SetBool("isBackward", false);
             }
             if (moveDirection.y < 0)
             {
-                animator.SetBool("isSideways", false);
-                animator.SetBool("isForward", true);
-                animator.SetBool("isBackward", false);
+                // animator.SetBool("isSideways", false);
+                // animator.SetBool("isForward", true);
+                // animator.SetBool("isBackward", false);
             }
             if (moveDirection.y > 0)
             {
-                animator.SetBool("isSideways", false);
-                animator.SetBool("isForward", false);
-                animator.SetBool("isBackward", true);
+                // animator.SetBool("isSideways", false);
+                // animator.SetBool("isForward", false);
+                // animator.SetBool("isBackward", true);
             }
         }
         else
         {
-            animator.SetBool("isMoving", false);
+            // animator.SetBool("isMoving", false);
         }
 
     }
