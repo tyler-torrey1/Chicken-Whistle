@@ -17,12 +17,14 @@ public class FreezeablePlatform : Freezeable {
     [SerializeField]
     private bool freeze;
 
-    void Update() {
+    protected override void Update()
+    {
+        base.Update();
+
         if (this.freeze) {
             this.Freeze(this.tempFreezeTime);
             this.freeze = false;
         }
-        base.Update();
     }
 
     // Update is called once per frame
