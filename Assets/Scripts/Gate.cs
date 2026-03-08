@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Door : Freezeable {
+public class Gate : Freezeable {
     [SerializeField]
     private bool _isOpen;
     private float _closeTime = 0f;

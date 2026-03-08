@@ -4,9 +4,6 @@ public class Freezeable : MonoBehaviour {
     protected bool IsFrozen { get; private set; } = false;
     private float _thawTime = 0f;
     protected BoxCollider2D _collider;
-
-    [SerializeField] private AudioClip _freezeAudio;
-
     public void Awake() {
         this._collider = this.GetComponent<BoxCollider2D>();
     }

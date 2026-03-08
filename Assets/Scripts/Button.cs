@@ -3,7 +3,7 @@ using UnityEngine;
 public class Button : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private Door door;
+    private Gate door;
 
     [SerializeField]
     private float openTime = 5f; // default to 5 seconds
