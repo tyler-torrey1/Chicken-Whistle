@@ -3,7 +3,8 @@ using UnityEngine;
 public class Freezeable : MonoBehaviour {
     protected bool IsFrozen { get; private set; } = false;
     private float _thawTime = 0f;
-    public virtual void Update() {
+
+    protected virtual void Update() {
         if (this.IsFrozen) {
             if (Time.time > this._thawTime) {
                 this.Unfreeze();

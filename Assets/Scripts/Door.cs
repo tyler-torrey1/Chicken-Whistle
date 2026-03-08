@@ -14,8 +14,10 @@ public class Door : Freezeable
         this._renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (this._closeTime > 0 && Time.time > this._closeTime && this._isOpen && !this.IsFrozen)
         {
             Debug.Log("Closing");
