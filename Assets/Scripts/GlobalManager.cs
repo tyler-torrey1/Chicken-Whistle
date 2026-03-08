@@ -50,9 +50,9 @@ public class GlobalManager : MonoBehaviour {
     [ContextMenu("Next Scene")]
     private void NextSceneInstance() {
         Scene current = SceneManager.GetActiveScene();
-
         if (current.buildIndex == SceneManager.sceneCountInBuildSettings - 1) {
             // Finished game
+            StartCoroutine(DelayedSceneChange(0));
         } else {
             StartCoroutine(DelayedSceneChange(current.buildIndex + 1));
         }

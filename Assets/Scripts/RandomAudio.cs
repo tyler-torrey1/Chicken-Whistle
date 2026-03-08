@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class RandomAudio : MonoBehaviour
-{
+public class RandomAudio : MonoBehaviour {
     [SerializeField] private AudioClip[] _clips;
 
     [SerializeField, Min(0)] private float _minWait;
@@ -10,33 +9,26 @@ public class RandomAudio : MonoBehaviour
 
     StopWatch _waitWatch;
     float _currWaitAmount;
-    
 
-    private void Start()
-    {
+    private void Start() {
         _waitWatch = new StopWatch();
         ResetWait();
     }
 
-    private void Update()
-    {
-        if (_waitWatch > _currWaitAmount)
-        {
+    private void Update() {
+        if (_waitWatch > _currWaitAmount) {
             PlayAudio();
         }
     }
 
-    private void OnValidate()
-    {
+    private void OnValidate() {
         _maxWait = Mathf.Max(_maxWait, _minWait);
     }
 
-    private void PlayAudio()
-    {
+    public void PlayAudio() {
         int randomIndex;
         int sanity = 0;
-        do
-        {
+        do {
             randomIndex = Mathf.FloorToInt(Random.Range(0, _clips.Length));
             sanity++;
         } while (sanity < _clips.Length + 1 && _clips[randomIndex] == null);
@@ -46,8 +38,7 @@ public class RandomAudio : MonoBehaviour
         ResetWait(_clips[randomIndex].length);
     }
 
-    private void ResetWait(float extraWait = 0f)
-    {
+    private void ResetWait(float extraWait = 0f) {
         _currWaitAmount = extraWait + Random.Range(_minWait, _maxWait);
 
         _waitWatch.Start();
