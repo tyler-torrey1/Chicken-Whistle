@@ -374,9 +374,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8250683448066045706, guid: efd67c8766eb6a847b830d21c8d2b173, type: 3}
-      propertyPath: orthographic size
-      value: 9
+    - target: {fileID: 8788843431598678076, guid: efd67c8766eb6a847b830d21c8d2b173, type: 3}
+      propertyPath: m_AssetsPPU
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8829624695481795591, guid: efd67c8766eb6a847b830d21c8d2b173, type: 3}
       propertyPath: m_Name
@@ -1122,7 +1122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1111626169
 Transform:
   m_ObjectHideFlags: 0
@@ -1607,7 +1607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1716420036
 Transform:
   m_ObjectHideFlags: 0

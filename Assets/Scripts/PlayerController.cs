@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveDirection;
 
     private float _jump;
+    bool _movementLocked; // for game win
 
 
     // data cache
@@ -54,6 +57,12 @@ public class PlayerController : MonoBehaviour
 
         _jumpWatch = new StopWatch();
         //jumpVel = ; should be cached
+        _movementLocked = false;
+    }
+
+    public void PrepareDeletion()
+    {
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
 
     public void SetMoveInput(Vector2 dir)
@@ -76,6 +85,22 @@ public class PlayerController : MonoBehaviour
         HandleMovement(_moveDirection);
         HandleJump();
         HandleAnimator();
+    }
+
+    /**
+     * For end of game
+     */
+    [ContextMenu("Fly, baby")]
+    public void StartFlightCoroutine() => StartCoroutine(FlightCoroutine());
+
+    private IEnumerator FlightCoroutine()
+    {
+        while (true)
+        {
+            body.AddForceY(Random.Range(1f, 3f), ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     /**
@@ -184,8 +209,11 @@ public class PlayerController : MonoBehaviour
      */
     public void MoveInput(InputAction.CallbackContext context)
     {
-        _moveDirection = context.ReadValue<Vector2>();
-        Debug.Log(_moveDirection);
+        if (_movementLocked)
+        {
+            return;
+        }
+        SetMoveInput(context.ReadValue<Vector2>());
     }
     
     /**
@@ -194,6 +222,10 @@ public class PlayerController : MonoBehaviour
      */
     public void JumpInput(InputAction.CallbackContext context)
     {
+        if (_movementLocked)
+        {
+            return;
+        }
         _jump = context.ReadValue<float>();
 
         if (_jump > 0f && _isGrounded && _isJumping == false)
@@ -206,6 +238,11 @@ public class PlayerController : MonoBehaviour
         {
             _isJumping = false;
         }
+    }
+
+    public void LockMovement()
+    {
+        _movementLocked = true;
     }
 
     public void OnDrawGizmos()
