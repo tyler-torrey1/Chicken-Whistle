@@ -26,6 +26,11 @@ public class GlobalManager : MonoBehaviour
         instance = this;
     }
 
+    public static void PrepareDeletion()
+    {
+        SceneManager.MoveGameObjectToScene(instance.gameObject, SceneManager.GetActiveScene());
+    }
+
     public void PlayGame()
     {
         StartCoroutine(DelayedSceneChange(1));
@@ -38,6 +43,7 @@ public class GlobalManager : MonoBehaviour
 
     public static void NextScene() => instance.NextSceneInstance();
     public static void ReloadScene() => instance.ReloadSceneInstance();
+    public static void DoBlackScreenFade(bool toBlack) => instance.StartCoroutine(instance.BlackScreenFade(toBlack));
 
 
     [ContextMenu("Next Scene")]
