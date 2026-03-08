@@ -16,4 +16,8 @@ public class MenuHandler : MonoBehaviour {
             Credits.SetActive(false);
         }
     }
+
+    public void Quit() {
+        Application.Quit();
+    }
 }
