@@ -5,35 +5,33 @@ public class Door : Freezeable {
     private bool _isOpen;
     private float _closeTime = 0f;
 
-    private SpriteRenderer _renderer;
     public void Start() {
-        this._renderer = this.GetComponent<SpriteRenderer>();
-        this.gameObject.layer = LayerMask.NameToLayer("Collider");
+        gameObject.layer = LayerMask.NameToLayer("Collider");
     }
 
     protected override void Update() {
         base.Update();
 
-        if (this._closeTime > 0 && Time.time > this._closeTime && this._isOpen && !this.IsFrozen) {
+        if (_closeTime > 0 && Time.time > _closeTime && _isOpen && !IsFrozen) {
             Debug.Log("Closing");
-            this.Close();
+            Close();
         }
     }
     public void Open(float openSeconds) {
-        this._isOpen = true;
-        this.gameObject.layer = LayerMask.NameToLayer("Non-Collider");
+        _isOpen = true;
+        gameObject.layer = LayerMask.NameToLayer("Non-Collider");
         if (openSeconds < 0) {
-            this._closeTime = -1; // Flag for 'permanent' open. Presumably, levers will pass a -1.
+            _closeTime = -1; // Flag for 'permanent' open. Presumably, levers will pass a -1.
         } else {
-            Debug.Log("Setting CloseTime to: " + this._closeTime);
-            this._closeTime = Time.time + openSeconds;
+            Debug.Log("Setting CloseTime to: " + _closeTime);
+            _closeTime = Time.time + openSeconds;
         }
     }
     private void Close() {
-        if (this._isOpen) {
-            this.gameObject.layer = LayerMask.NameToLayer("Collider");
-            this._isOpen = false;
-            this._closeTime = 0f; // Probably not necessary, but cleans up
+        if (_isOpen) {
+            gameObject.layer = LayerMask.NameToLayer("Collider");
+            _isOpen = false;
+            _closeTime = 0f; // Probably not necessary, but cleans up
         }
     }
 }

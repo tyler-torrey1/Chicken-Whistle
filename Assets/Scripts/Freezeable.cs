@@ -6,26 +6,26 @@ public class Freezeable : MonoBehaviour {
     protected BoxCollider2D _collider;
 
     public void Awake() {
-        this._collider = this.GetComponent<BoxCollider2D>();
+        _collider = GetComponent<BoxCollider2D>();
     }
 
     protected virtual void Update() {
-        if (this.IsFrozen) {
-            if (Time.time > this._thawTime) {
-                this.Unfreeze();
+        if (IsFrozen) {
+            if (Time.time > _thawTime) {
+                Unfreeze();
             }
         }
     }
 
     // Does this need to be an event, or will the freeze be able to call the Freeze method on all local objects?
     public virtual void Freeze(float freezeTime) {
-        this._thawTime = Time.time + freezeTime; // Current time + time frozen
-        this.IsFrozen = true;
+        _thawTime = Time.time + freezeTime; // Current time + time frozen
+        IsFrozen = true;
     }
     public virtual void Unfreeze() {
-        if (this.IsFrozen) {
-            this.IsFrozen = false;
-            this._thawTime = 0f; // Probably not necessary, but cleans up
+        if (IsFrozen) {
+            IsFrozen = false;
+            _thawTime = 0f; // Probably not necessary, but cleans up
         }
     }
 }
