@@ -549,33 +549,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &500605018 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2375350703675068628, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-  m_PrefabInstance: {fileID: 8535540124785376950}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &500605022
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500605018}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 486ca56bb2cbf8145989495509cd7ca3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &513111329
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,38 +917,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f16135d3377b6904fafb99b2b068884c, type: 3}
---- !u!1 &1836535998 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4127333665358820638, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-  m_PrefabInstance: {fileID: 8535540124785376950}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1836536000 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6969171054211303193, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-  m_PrefabInstance: {fileID: 8535540124785376950}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1836536003
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836535998}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 08cc6f3db243e454cb184143fb12a79c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1923822316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,9 +1210,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5111796397703326254, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
+    - target: {fileID: 1130945670702723397, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.178
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130945670702723397, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.14
+      value: 3.576
       objectReference: {fileID: 0}
     - target: {fileID: 6852348763741316924, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
       propertyPath: m_Name
@@ -1317,20 +1262,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8225592689599346279, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-      propertyPath: _renderer
-      value: 
-      objectReference: {fileID: 1836536000}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2375350703675068628, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 500605022}
-    - targetCorrespondingSourceObject: {fileID: 4127333665358820638, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1836536003}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81866adb25fbb7742983832f200bc08d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
