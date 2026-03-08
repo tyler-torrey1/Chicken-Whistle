@@ -5,9 +5,6 @@ public class Gate : Freezeable {
     private float _closeTime = 0f;
 
     [SerializeField]
-    private SpriteRenderer _renderer;
-
-    [SerializeField]
     private Sprite _openUnfrozen;
 
     [SerializeField]
@@ -15,9 +12,11 @@ public class Gate : Freezeable {
 
     [SerializeField]
     private Sprite _closed;
+
+    private Animator animator;
     public void Start() {
         gameObject.layer = LayerMask.NameToLayer("Collider");
-        _renderer = gameObject.GetComponent<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     protected override void Update() {
@@ -29,22 +28,25 @@ public class Gate : Freezeable {
         }
     }
     public void Open(float openSeconds) {
+        if (!_isOpen)
+        {
+            AudioManager.PlayGateOpen();
+        }
         _isOpen = true;
         gameObject.layer = LayerMask.NameToLayer("Non-Collider");
         if (openSeconds < 0) {
             _closeTime = -1; // Flag for 'permanent' open. Presumably, levers will pass a -1.
         } else {
             Debug.Log("Setting CloseTime to: " + _closeTime);
-            _renderer.sprite = _openUnfrozen;
+            animator.SetBool("isOpen", true);
             _closeTime = Time.time + openSeconds;
         }
-        AudioManager.PlayGateOpen();
     }
     private void Close() {
         if (_isOpen) {
             gameObject.layer = LayerMask.NameToLayer("Collider");
             _isOpen = false;
-            _renderer.sprite = _closed;
+            animator.SetBool("isOpen", false);
             _closeTime = 0f; // Probably not necessary, but cleans up
         }
     }
@@ -53,10 +55,10 @@ public class Gate : Freezeable {
             return; // Only open doors can be frozen
         }
         base.Freeze(freezeTime);
-        _renderer.sprite = _openFrozen;
+        animator.SetBool("isFrozen", true);
     }
     public override void Unfreeze() {
         base.Unfreeze();
-        _renderer.sprite = _openUnfrozen;
+        animator.SetBool("isFrozen", false);
     }
 }
