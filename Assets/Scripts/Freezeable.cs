@@ -3,6 +3,11 @@ using UnityEngine;
 public class Freezeable : MonoBehaviour {
     protected bool IsFrozen { get; private set; } = false;
     private float _thawTime = 0f;
+    protected BoxCollider2D _collider;
+
+    public void Awake() {
+        this._collider = this.GetComponent<BoxCollider2D>();
+    }
 
     protected virtual void Update() {
         if (this.IsFrozen) {

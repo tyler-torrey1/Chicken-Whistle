@@ -1,15 +1,11 @@
 using UnityEngine;
 public class FreezeablePlatform : Freezeable {
-    private BoxCollider2D _collider;
-    private Sprite _sprite;
+
     private SpriteRenderer _renderer;
     private
     void Start() {
-        this._sprite = this.GetComponent<Sprite>();
-        this._collider = this.GetComponent<BoxCollider2D>();
         this._renderer = this.GetComponent<SpriteRenderer>();
-
-        this._collider.enabled = false;
+        this.gameObject.layer = LayerMask.NameToLayer(layerName: "Non-Collider");
     }
     [SerializeField]
     private float tempFreezeTime = 3f; // 3 seconds for default freeze for temp testing
@@ -17,10 +13,8 @@ public class FreezeablePlatform : Freezeable {
     [SerializeField]
     private bool freeze;
 
-    protected override void Update()
-    {
+    protected override void Update() {
         base.Update();
-
         if (this.freeze) {
             this.Freeze(this.tempFreezeTime);
             this.freeze = false;
@@ -29,13 +23,13 @@ public class FreezeablePlatform : Freezeable {
 
     // Update is called once per frame
     public override void Freeze(float freezeTime) {
-        this._renderer.color = Color.blue;
-        this._collider.enabled = true;
+        // Set Collider to Colliding Layer
+        this.gameObject.layer = LayerMask.NameToLayer("Collider");
         base.Freeze(this.tempFreezeTime);
     }
     public override void Unfreeze() {
-        this._renderer.color = Color.white;
-        this._collider.enabled = false;
+        // Set Collider to Uncolliding Layer
+        this.gameObject.layer = LayerMask.NameToLayer(layerName: "Non-Collider");
         base.Unfreeze();
     }
 }

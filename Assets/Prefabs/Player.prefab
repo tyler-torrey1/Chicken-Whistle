@@ -15,9 +15,11 @@ GameObject:
   - component: {fileID: 8311745448198198480}
   - component: {fileID: 5939897822780543841}
   - component: {fileID: 5346937435768725461}
-  m_Layer: 0
+  - component: {fileID: 9081003279537189193}
+  - component: {fileID: 6048269252176874146}
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +89,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 1af1b6baa34a4b8418d6661dbbba3af0, type: 3}
-  m_Color: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,7 +132,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.07879315, y: -0.15233362}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -140,7 +142,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0525286, y: 1.3046672}
   m_EdgeRadius: 0
 --- !u!50 &-7990690219815601972
 Rigidbody2D:
@@ -181,12 +183,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e34a38e53addd54e82d12a54f0c655c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+<<<<<<< HEAD
   _jumpAudio: {fileID: 8300000, guid: 3ab3d6020d3eafb4bb66e692307886bb, type: 3}
   _moveAcc: 50
   _moveMaxVel: 5
   _maxJumpHeight: 15
   _isGrounded: 0
   _jumpLaunchDuration: 0.5
+=======
+  moveAcc: 15
+  moveMaxVel: 3
+  maxJumpHeight: 15
+  isGrounded: 0
+  jumpLaunchDuration: 0.25
+>>>>>>> f61c6714bb37957c9a38439403130b8f0582d8dd
 --- !u!114 &5939897822780543841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,11 +243,35 @@ MonoBehaviour:
     m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6048269252176874146}
+        m_TargetAssemblyTypeName: Whistle, Assembly-CSharp
+        m_MethodName: BlowWhistle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9081003279537189193}
+        m_TargetAssemblyTypeName: PlayerInteractionHandler, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
@@ -339,3 +373,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9081003279537189193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059478486690937563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a3767a984004797a14125af5c0a75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &6048269252176874146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059478486690937563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab07283c96e24454eb55c507cfa19489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Whistle
+  _whistleRadius: 2.5
+  _freezeTime: 5
+  _rb: {fileID: -7990690219815601972}
+  _whistleCooldown: 5.5
