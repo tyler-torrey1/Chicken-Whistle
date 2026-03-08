@@ -29,6 +29,10 @@ public class Gate : Freezeable {
         }
     }
     public void Open(float openSeconds) {
+        if (!_isOpen)
+        {
+            AudioManager.PlayGateOpen();
+        }
         _isOpen = true;
         gameObject.layer = LayerMask.NameToLayer("Non-Collider");
         if (openSeconds < 0) {
@@ -38,7 +42,6 @@ public class Gate : Freezeable {
             _renderer.sprite = _openUnfrozen;
             _closeTime = Time.time + openSeconds;
         }
-        AudioManager.PlayGateOpen();
     }
     private void Close() {
         if (_isOpen) {

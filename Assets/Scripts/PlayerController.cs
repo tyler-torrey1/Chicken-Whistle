@@ -87,20 +87,21 @@ public class PlayerController : MonoBehaviour
 
         float currVelHorizontal = body.linearVelocity.x;
 
-        float resolvedVelHorizontal = currVelHorizontal;
+        float resolvedAcc = currVelHorizontal;
 
         // Instant stop
         if (Mathf.Approximately(inputHorizontal, 0f) || // no input
             (!Mathf.Approximately(currVelHorizontal, 0f) && Mathf.Sign(inputHorizontal) != Mathf.Sign(currVelHorizontal))) // u-turn
         {
-            resolvedVelHorizontal = 0f;
+            resolvedAcc = -body.linearVelocity.x;
         }
-        resolvedVelHorizontal += inputHorizontal * _moveAcc * Time.fixedDeltaTime;
-        resolvedVelHorizontal = Mathf.Sign(resolvedVelHorizontal) * Mathf.Min(Mathf.Abs(resolvedVelHorizontal), _moveMaxVel);
-
-        float resolvedX = resolvedVelHorizontal;
-
-        body.linearVelocity = new Vector2(resolvedX, body.linearVelocity.y);
+        else
+        {
+            resolvedAcc = inputHorizontal * _moveAcc * Time.fixedDeltaTime;
+            resolvedAcc = Mathf.Sign(resolvedAcc) * Mathf.Min(Mathf.Abs(resolvedAcc), _moveMaxVel - Mathf.Abs(currVelHorizontal));
+        }
+        
+        body.AddForceX(resolvedAcc * body.mass, ForceMode2D.Impulse);
     }
 
     /**
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
             // Over jumpLaunchDuration, apply a total of jumpVel acceleration
             int frameCount = Mathf.Max(1, Mathf.RoundToInt(_jumpLaunchDuration / Time.fixedDeltaTime));
             float jumpAcc = _jumpVel * (1f / frameCount);
-            body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y + jumpAcc);
+            body.AddForceY(jumpAcc * body.mass, ForceMode2D.Impulse);
         }
     }
 
