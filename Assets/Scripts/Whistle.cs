@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Whistle : MonoBehaviour {
+
     [SerializeField]
     private float _whistleRadius = 2.5f;
 
@@ -25,11 +26,20 @@ public class Whistle : MonoBehaviour {
 
         Debug.Log("Blowing the whistle!");
         Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(_rb.worldCenterOfMass, _whistleRadius);
+        bool hasFrozen = false;
         foreach (Collider2D collider in nearbyColliders) {
             Freezeable freezeable = collider.GetComponent<Freezeable>();
+            hasFrozen |= freezeable != null;
             freezeable?.Freeze(_freezeTime);
         }
         _nextWhistleTime = Time.time + _whistleCooldown;
+
+        AudioManager.PlayWhistle();
+
+        if (hasFrozen)
+        {
+            AudioManager.PlayObjectFreeze();
+        }
     }
     public void OnDrawGizmos() {
         Gizmos.color = Color.cyan;

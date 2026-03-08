@@ -28,6 +28,7 @@ public class Door : Freezeable {
             Debug.Log("Setting CloseTime to: " + this._closeTime);
             this._closeTime = Time.time + openSeconds;
         }
+        AudioManager.PlayGateOpen();
     }
     private void Close() {
         if (this._isOpen) {

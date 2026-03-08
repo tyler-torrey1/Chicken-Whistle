@@ -19,5 +19,6 @@ public class Button : MonoBehaviour, IInteractable
     {
         Debug.Log("Open door for " + openTime + " seconds.");
         door.Open(openTime);
+        AudioManager.PlayGateButtonPress();
     }
 }

@@ -854,6 +854,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4807639333348105999, guid: fc7f54e669e75d04e9d0034825289612, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -995,6 +999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76989bf909902432d8ff2212dcedd2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _freezeAudio: {fileID: 0}
   _isOpen: 0
 --- !u!4 &1550601325
 Transform:

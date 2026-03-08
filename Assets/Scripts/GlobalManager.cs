@@ -8,7 +8,6 @@ using UnityEngine.UI;
  * We proceed linearly through stages only.
  */
 
-[RequireComponent(typeof(AudioSource))]
 public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager instance = null;

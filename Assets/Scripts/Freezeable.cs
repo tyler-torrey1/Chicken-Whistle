@@ -5,6 +5,8 @@ public class Freezeable : MonoBehaviour {
     private float _thawTime = 0f;
     protected BoxCollider2D _collider;
 
+    [SerializeField] private AudioClip _freezeAudio;
+
     public void Awake() {
         this._collider = this.GetComponent<BoxCollider2D>();
     }
@@ -19,13 +21,14 @@ public class Freezeable : MonoBehaviour {
 
     // Does this need to be an event, or will the freeze be able to call the Freeze method on all local objects?
     public virtual void Freeze(float freezeTime) {
-        this._thawTime = Time.time + freezeTime; // Current time + time frozen
+        this._thawTime = Time.time + freezeTime ; // Current time + time frozen
         this.IsFrozen = true;
     }
     public virtual void Unfreeze() {
         if (this.IsFrozen) {
             this.IsFrozen = false;
             this._thawTime = 0f; // Probably not necessary, but cleans up
+            AudioManager.PlayObjectUnfreeze();
         }
     }
 }

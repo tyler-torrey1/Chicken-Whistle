@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D body { get; private set; }
     new public BoxCollider2D collider { get; private set; }
 
-    [SerializeField] private AudioClip _jumpAudio;
     // horizontal control
     [SerializeField, Min(0)] private float _moveAcc = 50.0f;
     [SerializeField, Min(0)] private float _moveMaxVel = 5f;
@@ -55,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
         _jumpWatch = new StopWatch();
         //jumpVel = ; should be cached
-
     }
 
     public void SetMoveInput(Vector2 dir)
@@ -200,7 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             _jumpWatch.Start();
             _isJumping = true;
-            AudioSource.PlayClipAtPoint(_jumpAudio, body.worldCenterOfMass);
+            AudioManager.PlayPlayerJump();
         }
         else if (_jump <= 0f)
         {
