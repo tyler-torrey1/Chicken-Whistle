@@ -22,7 +22,7 @@ public class Whistle : MonoBehaviour {
         Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(this._rb.worldCenterOfMass, this.whistleRadius);
         foreach (Collider2D collider in nearbyColliders) {
             Freezeable freezeable = collider.GetComponent<Freezeable>();
-            freezeable.Freeze(this.freezeTime);
+            freezeable?.Freeze(this.freezeTime);
         }
     }
     public void OnDrawGizmos() {
