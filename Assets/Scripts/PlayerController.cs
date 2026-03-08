@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance = null;
+
     public SpriteRenderer spriteRenderer { get; private set; }
     public Animator animator { get; private set; }
     public Rigidbody2D body { get; private set; }
@@ -22,8 +24,11 @@ public class PlayerController : MonoBehaviour
     bool isJumping;
 
     // general state
-    private float jumpVel => Mathf.Sqrt(2f * Mathf.Abs(Physics2D.gravity.y / (Time.fixedDeltaTime * Time.fixedDeltaTime)) * maxJumpHeight); // should set in Awake and cached
+    private float jumpVel => 2f * Mathf.Abs(Physics2D.gravity.y * Time.fixedDeltaTime) * maxJumpHeight; // should set in Awake and cached
     private Vector2 moveDirection;
+
+    private float jump;
+
 
     // data cache
 
@@ -31,6 +36,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Debug.LogWarning(name + ": Singleton betrayal!");
+
+            instance.transform.position = transform.position;
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this);
+        instance = this;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -51,16 +67,8 @@ public class PlayerController : MonoBehaviour
         // get direction of player
 
         // flip sprite based on horizontal movement
-        if (moveDirection.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (moveDirection.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
+        
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -105,38 +113,46 @@ public class PlayerController : MonoBehaviour
         if (isJumping && jumpWatch <= jumpLaunchDuration)
         {
             // Over jumpLaunchDuration, apply a total of jumpVel acceleration
-            float jumpAcc = jumpVel * (Time.fixedDeltaTime / Mathf.Max(Time.fixedDeltaTime, jumpLaunchDuration));
-            body.AddForceY(jumpAcc * body.mass);
+            int frameCount = Mathf.Max(1, Mathf.RoundToInt(jumpLaunchDuration / Time.fixedDeltaTime));
+            float jumpAcc = jumpVel * (1f / frameCount);
+            body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y + jumpAcc);
         }
     }
 
     private void HandleAnimator()
     {
-        if (moveDirection.x != 0 || moveDirection.y != 0)
+        
+        // check if left
+        if (moveDirection.x > 0)
         {
-            // animator.SetBool("isMoving", true);
-            if (moveDirection.x != 0)
-            {
-                // animator.SetBool("isSideways", true);
-                // animator.SetBool("isForward", false);
-                // animator.SetBool("isBackward", false);
-            }
-            if (moveDirection.y < 0)
-            {
-                // animator.SetBool("isSideways", false);
-                // animator.SetBool("isForward", true);
-                // animator.SetBool("isBackward", false);
-            }
-            if (moveDirection.y > 0)
-            {
-                // animator.SetBool("isSideways", false);
-                // animator.SetBool("isForward", false);
-                // animator.SetBool("isBackward", true);
-            }
+            animator.SetBool("isLeft", false);
+        }
+        else if (moveDirection.x < 0)
+        {
+            animator.SetBool("isLeft", true);
+        }
+
+        // check if moving
+        if (body.linearVelocityX != 0)
+        {
+            animator.SetBool("isMoving", true);
         }
         else
         {
-            // animator.SetBool("isMoving", false);
+            animator.SetBool("isMoving", false);
+        }
+
+        // check if jumping
+        if (jump > 0f && isGrounded && !animator.GetBool("isAirborne"))
+        {
+            animator.SetTrigger("jump");
+            animator.SetBool("isAirborne", true);
+        }
+
+        else if (jump <= 0f && isGrounded && animator.GetBool("isAirborne"))
+        {
+            animator.ResetTrigger("jump");
+            animator.SetBool("isAirborne", false);
         }
 
     }
@@ -155,7 +171,7 @@ public class PlayerController : MonoBehaviour
         }
         foreach (ContactPoint2D contact in currentContacts)
         {
-            if (contact.normal.y > 0)
+            if (contact.normal.y > Mathf.Epsilon)
             {
                 return true;
             }
@@ -177,7 +193,7 @@ public class PlayerController : MonoBehaviour
      */
     public void JumpInput(InputAction.CallbackContext context)
     {
-        float jump = context.ReadValue<float>();
+        jump = context.ReadValue<float>();
 
         if (jump > 0f && isGrounded && isJumping == false)
         {
