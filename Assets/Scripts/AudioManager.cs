@@ -26,7 +26,6 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Debug.LogWarning(name + ": Singleton betrayal!");
             Destroy(gameObject);
             return;
         }

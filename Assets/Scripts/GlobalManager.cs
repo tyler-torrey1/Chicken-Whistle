@@ -14,12 +14,12 @@ public class GlobalManager : MonoBehaviour
 
     [SerializeField] private Image blackscreen;
     [SerializeField, Min(0)] private float fadeTime;
+    [SerializeField] Bounds _worldBounds;
 
     void Awake()
     {
         if (instance != null && instance != this)
         {
-            Debug.LogWarning(name + ": Singleton betrayal!");
             Destroy(gameObject);
             return;
         }
@@ -67,6 +67,7 @@ public class GlobalManager : MonoBehaviour
     {
         yield return BlackScreenFade(true);
         SceneManager.LoadScene(targetSceneIndex);
+        BackgroundManager.InitializeBackground();
         yield return BlackScreenFade(false);
     }
 
