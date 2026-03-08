@@ -8,6 +8,7 @@ using UnityEngine.UI;
  * We proceed linearly through stages only.
  */
 
+[RequireComponent(typeof(AudioSource))]
 public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager instance = null;
@@ -28,8 +29,8 @@ public class GlobalManager : MonoBehaviour
     }
 
     public static void NextScene() => instance.NextSceneInstance();
-
     public static void ReloadScene() => instance.ReloadSceneInstance();
+
 
     [ContextMenu("Next Scene")]
     private void NextSceneInstance()

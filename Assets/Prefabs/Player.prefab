@@ -181,11 +181,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e34a38e53addd54e82d12a54f0c655c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveAcc: 15
-  moveMaxVel: 3
-  maxJumpHeight: 5
-  isGrounded: 0
-  jumpLaunchDuration: 0.25
+  _jumpAudio: {fileID: 8300000, guid: 3ab3d6020d3eafb4bb66e692307886bb, type: 3}
+  _moveAcc: 50
+  _moveMaxVel: 5
+  _maxJumpHeight: 15
+  _isGrounded: 0
+  _jumpLaunchDuration: 0.5
 --- !u!114 &5939897822780543841
 MonoBehaviour:
   m_ObjectHideFlags: 0
