@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundManager
   _cloudPrefab: {fileID: 5952412467303687237, guid: 8e68972947a866e429ce935aba00d497, type: 3}
-  _maxCount: 15
+  _maxCount: 10
   _minWaitSeconds: 0
   _maxWaitSeconds: 10
 --- !u!1 &4188347853764144739
