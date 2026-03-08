@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b4d98d5c46c9242ad52c1473e46032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundCloud
-  _minScale: 0.25
-  _maxScale: 5
+  _minScale: 0.1
+  _maxScale: 3
   _minLifetime: 10
-  _maxLifetime: 100
-  _lifetimeRandomPercent: 0.2
+  _maxLifetime: 300
+  _lifetimeRandomPercent: 0.25

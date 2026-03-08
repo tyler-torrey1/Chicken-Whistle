@@ -39,8 +39,8 @@ public class BackgroundCloud : MonoBehaviour
 
         float minHeight = mapBottomLeft.y - 1;
         float maxHeight = mapTopRight.y + 1;
-        float minSide = mapBottomLeft.x - 2;
-        float maxSide = mapTopRight.x + 2;
+        float minSide = mapBottomLeft.x - 5;
+        float maxSide = mapTopRight.x + 5;
 
         while (_lifetimeLerp < 1f)
         {
