@@ -4,7 +4,6 @@ public class Freezeable : MonoBehaviour {
     protected bool IsFrozen { get; private set; } = false;
     private float _thawTime = 0f;
     protected BoxCollider2D _collider;
-
     public void Awake() {
         _collider = GetComponent<BoxCollider2D>();
     }
@@ -26,6 +25,7 @@ public class Freezeable : MonoBehaviour {
         if (IsFrozen) {
             IsFrozen = false;
             _thawTime = 0f; // Probably not necessary, but cleans up
+            AudioManager.PlayObjectUnfreeze();
         }
     }
 }

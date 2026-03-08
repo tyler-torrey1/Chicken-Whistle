@@ -12,22 +12,22 @@ public class PlayerController : MonoBehaviour
     new public BoxCollider2D collider { get; private set; }
 
     // horizontal control
-    [SerializeField, Min(0)] private float moveAcc = 50.0f;
-    [SerializeField, Min(0)] private float moveMaxVel = 5f;
-    [SerializeField, Min(0)] private float maxJumpHeight;
+    [SerializeField, Min(0)] private float _moveAcc = 50.0f;
+    [SerializeField, Min(0)] private float _moveMaxVel = 5f;
+    [SerializeField, Min(0)] private float _maxJumpHeight;
 
 
     // vertical control state
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private float jumpLaunchDuration = .5f; // for max jump, hold
-    StopWatch jumpWatch;
-    bool isJumping;
+    [SerializeField] private bool _isGrounded;
+    [SerializeField] private float _jumpLaunchDuration = .5f; // for max jump, hold
+    StopWatch _jumpWatch;
+    bool _isJumping;
 
     // general state
-    private float jumpVel => 2f * Mathf.Abs(Physics2D.gravity.y * Time.fixedDeltaTime) * maxJumpHeight; // should set in Awake and cached
-    private Vector2 moveDirection;
+    private float _jumpVel => 2f * Mathf.Abs(Physics2D.gravity.y * Time.fixedDeltaTime) * _maxJumpHeight; // should set in Awake and cached
+    private Vector2 _moveDirection;
 
-    private float jump;
+    private float _jump;
 
 
     // data cache
@@ -52,14 +52,13 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
 
-        jumpWatch = new StopWatch();
+        _jumpWatch = new StopWatch();
         //jumpVel = ; should be cached
-
     }
 
     public void SetMoveInput(Vector2 dir)
     {
-        moveDirection = dir;
+        _moveDirection = dir;
     }
 
     void Update()
@@ -73,8 +72,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        isGrounded = CheckIfGrounded();
-        HandleMovement(moveDirection);
+        _isGrounded = CheckIfGrounded();
+        HandleMovement(_moveDirection);
         HandleJump();
         HandleAnimator();
     }
@@ -96,8 +95,8 @@ public class PlayerController : MonoBehaviour
         {
             resolvedVelHorizontal = 0f;
         }
-        resolvedVelHorizontal += inputHorizontal * moveAcc * Time.fixedDeltaTime;
-        resolvedVelHorizontal = Mathf.Sign(resolvedVelHorizontal) * Mathf.Min(Mathf.Abs(resolvedVelHorizontal), moveMaxVel);
+        resolvedVelHorizontal += inputHorizontal * _moveAcc * Time.fixedDeltaTime;
+        resolvedVelHorizontal = Mathf.Sign(resolvedVelHorizontal) * Mathf.Min(Mathf.Abs(resolvedVelHorizontal), _moveMaxVel);
 
         float resolvedX = resolvedVelHorizontal;
 
@@ -110,11 +109,11 @@ public class PlayerController : MonoBehaviour
      */
     private void HandleJump()
     {
-        if (isJumping && jumpWatch <= jumpLaunchDuration)
+        if (_isJumping && _jumpWatch <= _jumpLaunchDuration)
         {
             // Over jumpLaunchDuration, apply a total of jumpVel acceleration
-            int frameCount = Mathf.Max(1, Mathf.RoundToInt(jumpLaunchDuration / Time.fixedDeltaTime));
-            float jumpAcc = jumpVel * (1f / frameCount);
+            int frameCount = Mathf.Max(1, Mathf.RoundToInt(_jumpLaunchDuration / Time.fixedDeltaTime));
+            float jumpAcc = _jumpVel * (1f / frameCount);
             body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y + jumpAcc);
         }
     }
@@ -123,11 +122,11 @@ public class PlayerController : MonoBehaviour
     {
         
         // check if left
-        if (moveDirection.x > 0)
+        if (_moveDirection.x > 0)
         {
             animator.SetBool("isLeft", false);
         }
-        else if (moveDirection.x < 0)
+        else if (_moveDirection.x < 0)
         {
             animator.SetBool("isLeft", true);
         }
@@ -143,13 +142,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if jumping
-        if (jump > 0f && isGrounded && !animator.GetBool("isAirborne"))
+        if (_jump > 0f && _isGrounded && !animator.GetBool("isAirborne"))
         {
             animator.SetTrigger("jump");
             animator.SetBool("isAirborne", true);
         }
 
-        else if (jump <= 0f && isGrounded && animator.GetBool("isAirborne"))
+        else if (_jump <= 0f && _isGrounded && animator.GetBool("isAirborne"))
         {
             animator.ResetTrigger("jump");
             animator.SetBool("isAirborne", false);
@@ -184,7 +183,7 @@ public class PlayerController : MonoBehaviour
      */
     public void MoveInput(InputAction.CallbackContext context)
     {
-        moveDirection = context.ReadValue<Vector2>();
+        _moveDirection = context.ReadValue<Vector2>();
     }
     
     /**
@@ -193,16 +192,17 @@ public class PlayerController : MonoBehaviour
      */
     public void JumpInput(InputAction.CallbackContext context)
     {
-        jump = context.ReadValue<float>();
+        _jump = context.ReadValue<float>();
 
-        if (jump > 0f && isGrounded && isJumping == false)
+        if (_jump > 0f && _isGrounded && _isJumping == false)
         {
-            jumpWatch.Start();
-            isJumping = true;
+            _jumpWatch.Start();
+            _isJumping = true;
+            AudioManager.PlayPlayerJump();
         }
-        else if (jump <= 0f)
+        else if (_jump <= 0f)
         {
-            isJumping = false;
+            _isJumping = false;
         }
     }
 

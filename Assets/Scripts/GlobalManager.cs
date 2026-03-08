@@ -27,9 +27,19 @@ public class GlobalManager : MonoBehaviour
         instance = this;
     }
 
-    public static void NextScene() => instance.NextSceneInstance();
+    public void PlayGame()
+    {
+        StartCoroutine(DelayedSceneChange(1));
+    }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public static void NextScene() => instance.NextSceneInstance();
     public static void ReloadScene() => instance.ReloadSceneInstance();
+
 
     [ContextMenu("Next Scene")]
     private void NextSceneInstance()

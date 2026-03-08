@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Button : MonoBehaviour, IInteractable {
     [SerializeField]
-    private Door door;
+    private Gate door;
 
     [SerializeField]
     private float openTime = 5f; // default to 5 seconds
@@ -34,7 +34,11 @@ public class Button : MonoBehaviour, IInteractable {
     private void ButtonPressed() {
         Debug.Log("Open door for " + openTime + " seconds.");
         door.Open(openTime);
+<<<<<<< HEAD
         _renderer.sprite = sprite[1];
         _stopWatch.Start();
+=======
+        AudioManager.PlayGateButtonPress();
+>>>>>>> 9e84c7a1284eaf9dc36cc1d3bca1b10a1b4f1e05
     }
 }
