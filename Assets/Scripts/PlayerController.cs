@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
     public void MoveInput(InputAction.CallbackContext context)
     {
         _moveDirection = context.ReadValue<Vector2>();
+        Debug.Log(_moveDirection);
     }
     
     /**

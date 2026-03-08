@@ -14,7 +14,6 @@ public class GlobalManager : MonoBehaviour
 
     [SerializeField] private Image blackscreen;
     [SerializeField, Min(0)] private float fadeTime;
-    [SerializeField] Bounds _worldBounds;
 
     void Awake()
     {
