@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2851806539736698430}
   - component: {fileID: 2020603008323171483}
   - component: {fileID: 1648310554763559707}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Freezeable Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
