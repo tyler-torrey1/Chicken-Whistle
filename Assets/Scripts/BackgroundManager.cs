@@ -44,6 +44,7 @@ public class BackgroundManager : MonoBehaviour
             instance.gameObject.SetActive(false);
         }
     }
+
     private void Start()
     {
         InitializeBackgroundInstance();
