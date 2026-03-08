@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenuHandler : MonoBehaviour {
     public void PlayGame() {
-        SceneManager.LoadSceneAsync("Scene");
+        SceneManager.LoadSceneAsync(1);
     }
 
     public void ExitGame() {
