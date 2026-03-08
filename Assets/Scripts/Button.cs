@@ -14,9 +14,14 @@ public class Button : MonoBehaviour, IInteractable {
 
     [SerializeField]
     private float depressTime = .5f;
+
+    private Animator animator;
+
+
     void Start() {
         _renderer = GetComponent<SpriteRenderer>();
         _stopWatch = new();
+        animator = GetComponent<Animator>();
     }
 
     void Update() {
@@ -32,10 +37,11 @@ public class Button : MonoBehaviour, IInteractable {
     }
 
     private void ButtonPressed() {
+        animator.SetTrigger("Pressed");
         Debug.Log("Open door for " + openTime + " seconds.");
         door.Open(openTime);
-        _renderer.sprite = sprite[1];
         _stopWatch.Start();
         AudioManager.PlayGateButtonPress();
+        
     }
 }

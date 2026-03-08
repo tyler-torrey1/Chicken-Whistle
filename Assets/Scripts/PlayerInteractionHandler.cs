@@ -2,10 +2,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractionHandler : MonoBehaviour {
+    public Animator animator { get; private set; }
     private IInteractable _currentInteractable;
 
     public void SetInteractable(IInteractable newInteractable) {
         this._currentInteractable = newInteractable;
+    }
+
+    void Awake() {
+        animator = GetComponent<Animator>();
     }
 
     // The thought here is that the interactable will call this when you leave its trigger radius, and if it is the current interactable
@@ -23,6 +28,7 @@ public class PlayerInteractionHandler : MonoBehaviour {
         if (!context.performed) {
             return;
         }
+        animator.SetTrigger("buttonPressed");
         Debug.Log("Interacting with: " + this._currentInteractable);
         this._currentInteractable?.Interact();
     }

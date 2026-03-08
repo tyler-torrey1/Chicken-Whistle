@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Whistle : MonoBehaviour {
 
+    public Animator animator { get; private set; }
+
     [SerializeField]
     private float _whistleRadius = 2.5f;
 
@@ -17,6 +19,7 @@ public class Whistle : MonoBehaviour {
 
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void BlowWhistle(InputAction.CallbackContext context) {
@@ -25,6 +28,7 @@ public class Whistle : MonoBehaviour {
         }
 
         Debug.Log("Blowing the whistle!");
+        animator.SetTrigger("blowingWhistle");
         Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(_rb.worldCenterOfMass, _whistleRadius);
         bool hasFrozen = false;
         foreach (Collider2D collider in nearbyColliders) {
